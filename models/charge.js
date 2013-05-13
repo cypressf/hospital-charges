@@ -13,5 +13,6 @@ var ChargeSchema = mongoose.Schema({
         "Average Covered Charges": Number,
         "Average Total Payments": Number
 });
+ChargeSchema.index({"DRG Definition": 1, 'Average Total Payments': -1});
 
 module.exports = mongoose.model('Charge', ChargeSchema);

@@ -21,9 +21,11 @@ exports.charges = function(req, res) {
             return console.log(err);
         }
     };
-    Charge
-        .find()
-        .sort({'Average Total Payments': -1})
-        .limit(20)
-        .exec(callback);
+    var query = Charge.find().sort({"DRG Definition": 1, 'Average Total Payments': -1}).limit(200000);
+    for (property in Charge.schema.tree) {
+        if (req.query[property]) {
+            query = query.where(property).equals(req.query[property]);
+        }
+    }
+    query.exec(callback);
 }
